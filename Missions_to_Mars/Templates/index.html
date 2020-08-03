@@ -6,23 +6,30 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Mission to Mars</title>
+  <title>Mission to Mars via Web Scraping</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 </head>
 
 <body>
   <div class="container-fluid">
     <!-- jumbotron title with button to scrape new data -->
-    <div class="jumbotron text-center">
-      <h1>Mission to Mars</h1>
-      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
+    <div class="jumbotron text-center" style="background-color:darkred !important;">
+      <h1 class="display-4" style="color:white">Mission to Mars</h1>
+      <p class="lead" style="color:white">
+        Welcome to my web scraping application presenting various websites' data related to the Mission to Mars in a single HTML page.
+      </p>
+      <hr class="my-4">
+      <h4 style="color:white">How it works: Splinter and Pandas to scrape, BeautifulSoup to parse, Pymongo and MongoDB to store, Flask to present, and Python to pull everything together.</h4>
+      <br>
+      <p><a class="btn btn-success btn-lg active" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
+    
     <!-- display latest title and p with header -->
     <row>
     <h2>Latest Mars News</h2>
-    <h3><a href=" {{ display_data.news_href }} " class="text-decoration-none" target=”_blank”>{{ display_data.news_title }}</a></h3>
+    <h3><a href=" {{ display_data.news_href }} " class="text-decoration-none" target=”_blank” style="color:#398439">{{ display_data.news_title }}</a></h3>
     <p>{{ display_data.news_p }}</p>
-    <h5><a href=" {{ display_data.news_source_url }} " class="text-decoration-none" target=”_blank”>News Source</a></h5>
+    <h5><a href=" {{ display_data.news_source_url }} " class="text-decoration-none" style="color:#398439" target=”_blank”>News Source</a></h5>
     </row>
 
   <!-- row to line up latest image and table -->
@@ -36,7 +43,7 @@
         <div class="content">
             <img src="{{ display_data.featured_image_url }}" alt="Featured Mars Image" style="width:100%">
         </div>
-        <h5><a href=" {{ display_data.featured_image_source }} " class="text-decoration-none" target=”_blank”>Image Source</a></h5>
+        <h5><a href=" {{ display_data.featured_image_source }} " class="text-decoration-none" style="color:#398439" target=”_blank”>Image Source</a></h5>
       </div>
     </div>
 
@@ -49,7 +56,7 @@
             <div>
             {{display_data.html_table | safe }}
             </div>
-            <h5><a href=" {{ display_data.facts_source }} " class="text-decoration-none" target=”_blank”>Facts Source</a></h5>
+            <h5><a href=" {{ display_data.facts_source }} " class="text-decoration-none" style="color:#398439" target=”_blank”>Facts Source</a></h5>
         </div>
     </div>
    </div>
@@ -61,24 +68,28 @@
     </div>
     <!-- "for" loop to go through the Mongo array -->
     {% for hemi in display_data.hemi_img_urls %}
-    <div class="card-deck col-md-6">
-      <div class="card">
-        <div class="card-block">
-        <img class = "card-img-top" src="{{ hemi.hemi_img_url }}" alt="{{ hemi.hemi_img_name }}" style="width:100%"> 
-
-            <h4 class = "card-title">{{ hemi.hemi_img_name }}</h4>
-            <div class="card-footer">
-              <a href="{{ hemi.hemi_source_url }} " target=”_blank class="card-link">Hemisphere Source</a>
-            </div>
-
+    <div class="card col-md-6">
+      <img class="card-img-top" src="{{ hemi.hemi_img_url }}" alt="{{ hemi.hemi_img_name }}" style="width:100%">
+        <div class="card-body">
+          <h4 class = "card-title">{{ hemi.hemi_img_name }}</h4>
+          <a href="{{ hemi.hemi_source_url }}" target=”_blank style="color:#398439" class="card-link">Hemisphere Source</a>
         </div>
-      </div>
     </div>
     {% endfor %}
    </div>
 
-
+  <!-- basic footer -->
   </div>
+  <footer>
+    <br>
+  <div class="footer"><a class="link-unstyled" style="color:#398439"  target="_blank" href="https://github.com/bbixby">Matt Debnar</a>, <a class="link-unstyled" style="color:#398439"  target="_blank" href="https://bootcamp.cvn.columbia.edu/data/">Columbia Engineering Data Analytics Bootcamp</a></div>
+  </footer>
+  
+  
+  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 
 </html>
