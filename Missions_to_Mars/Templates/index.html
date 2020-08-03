@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <!-- set header for Bootstrap responsive -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -11,17 +12,21 @@
 
 <body>
   <div class="container-fluid">
+    <!-- jumbotron title with button to scrape new data -->
     <div class="jumbotron text-center">
       <h1>Mission to Mars</h1>
       <p><a class="btn btn-primary btn-lg" href="/scrape" role="button">Scrape New Data</a></p>
     </div>
+    <!-- display latest title and p with header -->
     <row>
     <h2>Latest Mars News</h2>
     <h3>{{ display_data.news_title }}</h3>
     <p>{{ display_data.news_p }}</p>
     </row>
 
+  <!-- row to line up latest image and table -->
   <div class="row">
+    <!-- featured image with h3 header takes up most of the 12 columns -->
     <div class="col-md-8 col-sm-12">
       <div class="box">
         <div class="header">
@@ -33,6 +38,7 @@
       </div>
     </div>
 
+    <!-- facts table takes up the rest of the columns; relies on pandas css from df.to_html(classes = 'table table-striped table-hover') -->
     <div class="col-md-4 col-sm-12">
         <div class="box">
           <div class="header">
@@ -45,17 +51,20 @@
     </div>
    </div>
 
+   <!-- new row for the hemisphere images -->
    <div class="row">
     <div class="page-header">
         <h2 class="text-center"><b>Mars Hemispheres</b></h2>
     </div>
-    <!-- "for" loop to go through the dictionary -->
+    <!-- "for" loop to go through the Mongo array -->
     {% for hemi in display_data.hemi_img_urls %}
-    <div class="col-md-6">
-    <!-- <figure class="figure"> -->
-    <img class = "panel" src="{{ hemi.hemi_img_url }}" alt="{{ hemi.hemi_img_name }}" style="width:100%"> 
-    <figcaption class = "panel"><h4>{{ hemi.hemi_img_name }}</h4></figcaption>
-    <!-- </figure> -->
+    <div class="card col-md-6">
+      <div class="card-deck">
+      <img class = "card-img-top" src="{{ hemi.hemi_img_url }}" alt="{{ hemi.hemi_img_name }}" style="width:100%"> 
+        <div class="card-body">
+          <h4 class = "card-title">{{ hemi.hemi_img_name }}</h4>
+        </div>
+      </div>
     </div>
     {% endfor %}
    </div>
