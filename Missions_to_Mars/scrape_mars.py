@@ -29,11 +29,14 @@ def scrape():
     #define news_title and news_p to render
     news_title = news_soup.find("div", class_='listTextLabel').find('h2', class_='alt01').text.strip()
     news_p = news_soup.find("div", class_='listTextLabel').find('p').text.strip()
+    news_href = news_soup.find("h2", class_='alt01').a["href"]
     
     # Store NEWS data in the mars_data dictionary
     mars_data = {
         "news_title": news_title,
-        "news_p": news_p
+        "news_p": news_p,
+        "news_href": news_href,
+        "news_source_url": news_url
      }
 
 
@@ -53,7 +56,8 @@ def scrape():
     featured_image_url = img_base_url + featured_image
 
     # Store FEATURED IMAGE URL data in the mars_data dictionary
-    mars_data.update( {'featured_image_url' : featured_image_url} )
+    mars_data.update( {'featured_image_url' : featured_image_url, 
+                        'featured_image_source' : img_url} )
 
 
     #MARS FACTS
@@ -72,7 +76,8 @@ def scrape():
     html_table = mars_facts_df.to_html(classes = 'table table-striped table-hover')
 
     # Store MARS FACTS html table data in the mars_data dictionary
-    mars_data.update( {'html_table' : html_table} )
+    mars_data.update( {'html_table' : html_table,
+                        'facts_source': facts_url} )
 
     #MARS HEMISPHERE IMAGES
     # get four Mars Hemisphere images and store in Mongo array
@@ -115,6 +120,7 @@ def scrape():
         #add to dictionary as hemi_img_name, hemi_img_url
         hemi_dict['hemi_img_name'] = img_name
         hemi_dict['hemi_img_url'] = link_base + indv_hemi_url
+        hemi_dict['hemi_source_url'] = visit_link
         #put dictionary into hemi_img_urls
         hemi_img_urls.append(hemi_dict)
         #back up to repeat

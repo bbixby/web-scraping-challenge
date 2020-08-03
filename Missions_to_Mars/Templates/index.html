@@ -20,8 +20,9 @@
     <!-- display latest title and p with header -->
     <row>
     <h2>Latest Mars News</h2>
-    <h3>{{ display_data.news_title }}</h3>
+    <h3><a href=" {{ display_data.news_href }} " class="text-decoration-none" target=”_blank”>{{ display_data.news_title }}</a></h3>
     <p>{{ display_data.news_p }}</p>
+    <h5><a href=" {{ display_data.news_source_url }} " class="text-decoration-none" target=”_blank”>News Source</a></h5>
     </row>
 
   <!-- row to line up latest image and table -->
@@ -35,6 +36,7 @@
         <div class="content">
             <img src="{{ display_data.featured_image_url }}" alt="Featured Mars Image" style="width:100%">
         </div>
+        <h5><a href=" {{ display_data.featured_image_source }} " class="text-decoration-none" target=”_blank”>Image Source</a></h5>
       </div>
     </div>
 
@@ -47,6 +49,7 @@
             <div>
             {{display_data.html_table | safe }}
             </div>
+            <h5><a href=" {{ display_data.facts_source }} " class="text-decoration-none" target=”_blank”>Facts Source</a></h5>
         </div>
     </div>
    </div>
@@ -58,11 +61,16 @@
     </div>
     <!-- "for" loop to go through the Mongo array -->
     {% for hemi in display_data.hemi_img_urls %}
-    <div class="card col-md-6">
-      <div class="card-deck">
-      <img class = "card-img-top" src="{{ hemi.hemi_img_url }}" alt="{{ hemi.hemi_img_name }}" style="width:100%"> 
-        <div class="card-body">
-          <h4 class = "card-title">{{ hemi.hemi_img_name }}</h4>
+    <div class="card-deck col-md-6">
+      <div class="card">
+        <div class="card-block">
+        <img class = "card-img-top" src="{{ hemi.hemi_img_url }}" alt="{{ hemi.hemi_img_name }}" style="width:100%"> 
+
+            <h4 class = "card-title">{{ hemi.hemi_img_name }}</h4>
+            <div class="card-footer">
+              <a href="{{ hemi.hemi_source_url }} " target=”_blank class="card-link">Hemisphere Source</a>
+            </div>
+
         </div>
       </div>
     </div>
